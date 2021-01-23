@@ -4,14 +4,11 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import {userRouter} from "./router";
+
 const app = express();
 
-// 포트 번호 지정
-const PORT = 4000;
-
 // respond 함수 (using Arrow Function)
-const handleListening = () => console.log(`Listening on: http://localhost:${PORT}`);
-
 const handleHome = (req, res) => res.send("Hello from Home");
 
 const handleProfile = (req, res) => res.send("You are on my profile");
@@ -37,5 +34,8 @@ app.use(morgan("dev"));
 app.get("/", handleHome);
 app.get("/profile", handleProfile);
 
-// server 시작
-app.listen(PORT, handleListening);
+// routing 설정
+app.use("/user", userRouter);
+
+// export
+export default app;
