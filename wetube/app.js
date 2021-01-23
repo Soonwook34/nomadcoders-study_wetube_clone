@@ -4,14 +4,12 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import {userRouter} from "./router";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+import globalRouter from "./routers/globalRouter";
+import routes from "./routes"
 
 const app = express();
-
-// respond 함수 (using Arrow Function)
-const handleHome = (req, res) => res.send("Hello from Home");
-
-const handleProfile = (req, res) => res.send("You are on my profile");
 
 //middleware 함수
 const betweenHome = (req, res, next) => {
@@ -30,12 +28,11 @@ app.use(helmet());
 // morgan middleware 사용 for logging (combined / common / dev / short / tiny)
 app.use(morgan("dev"));
 
-// route 생성
-app.get("/", handleHome);
-app.get("/profile", handleProfile);
 
 // routing 설정
-app.use("/user", userRouter);
+app.use(routes.home, globalRouter);
+app.use(routes.users, userRouter);
+app.use(routes.videos, videoRouter);
 
 // export
 export default app;
