@@ -17,6 +17,9 @@ const betweenHome = (req, res, next) => {
     next();
 }
 
+// View Engine을 Pug로 설정
+app.set("view engine", "pug");
+
 // middleware global 사용
 app.use(betweenHome);
 // middleware bodyParser, cookieParser(json, urlencoded) 사용
