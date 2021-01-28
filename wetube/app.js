@@ -13,7 +13,7 @@ import globalRouter from "./routers/globalRouter";
 const app = express();
 
 // helmet middleware 사용 for security
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // View Engine을 Pug로 설정
 app.set("view engine", "pug");
