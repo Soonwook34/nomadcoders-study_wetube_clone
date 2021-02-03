@@ -18,6 +18,8 @@ app.use(helmet({ contentSecurityPolicy: false }));
 // View Engine을 Pug로 설정
 app.set("view engine", "pug");
 
+// video 파일을 전송해주기 위한 middleware express.static()
+app.use("/uploads", express.static("uploads"));
 // middleware bodyParser, cookieParser(json, urlencoded) 사용
 app.use(cookieParser());
 app.use(bodyParser.json());
