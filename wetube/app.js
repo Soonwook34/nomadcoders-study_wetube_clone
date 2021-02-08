@@ -20,6 +20,8 @@ app.set("view engine", "pug");
 
 // video 파일을 전송해주기 위한 middleware express.static()
 app.use("/uploads", express.static("uploads"));
+// 경로 연결
+app.use("/static", express.static("static"));
 // middleware bodyParser, cookieParser(json, urlencoded) 사용
 app.use(cookieParser());
 app.use(bodyParser.json());

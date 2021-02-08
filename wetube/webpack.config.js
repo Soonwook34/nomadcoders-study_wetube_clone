@@ -8,10 +8,18 @@ const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
-    entry: ENTRY_FILE,
+    entry: ["@babel/polyfill", ENTRY_FILE],
     mode: MODE,
     module: {
         rules: [
+            {
+                test: /\.(js)$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    }
+                ]
+            },
             {
                 test: /\.(scss)$/,
                 use: [
@@ -53,7 +61,7 @@ const config = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].css'
+            filename: 'styles.css'
         }),
     ]
 };
