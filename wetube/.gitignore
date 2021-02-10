@@ -1,7 +1,4 @@
 node_modules
-package-lock.json
-uploads
-static
 
 # Logs
 logs
@@ -119,3 +116,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+package-lock.json
+uploads
+# static
