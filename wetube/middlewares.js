@@ -11,6 +11,7 @@ export const localsMiddleware = (req, res, next) => {
         isAuthenticated: false,
         id: 1
     };
+    res.locals.user = req.user || {};
     next();
 };
 

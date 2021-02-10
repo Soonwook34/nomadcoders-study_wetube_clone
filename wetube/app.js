@@ -4,11 +4,14 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import passport from "passport";
 import { localsMiddleware } from "./middlewares";
 import routes from "./routes"
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
+
+import "./passport";
 
 const app = express();
 
@@ -28,6 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // morgan middleware 사용 for logging (combined / common / dev / short / tiny)
 app.use(morgan("dev"));
+// cookieParser로부터 쿠기를 받고 passport를 initialize한 다음 localMiddleware에서 사용자를 req.user로 만들어줌
+app.use(passport.initialize());
+app.use(passport.session());
 // middleware 
 app.use(localsMiddleware);
 
