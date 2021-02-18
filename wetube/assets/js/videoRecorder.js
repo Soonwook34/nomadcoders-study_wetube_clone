@@ -2,16 +2,35 @@ const recorderContainer = document.getElementById("jsRecordContainer");
 const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
+// 비디오 스트림
 let streamObject;
+let videoRecorder;
 
 const handleVideoData = event => {
-    console.log(event);
+    const { data: videoFile } = event;
+    // 저장 및 다운로드
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(videoFile);
+    link.download = "recorded.webm";
+    document.body.appendChild(link);
+    link.click();
+};
+
+const stopRecording = () => {
+    // 녹화 종료
+    videoRecorder.stop();
+    // EventListener 원래대로 돌려놓기
+    recordBtn.removeEventListener("click", stopRecording);
+    recordBtn.addEventListener("click", getVideo);
+    recordBtn.innerHTML = "Start recording";
 };
 
 const startRecording = () => {
-    const videoRecorder = new MediaRecorder(streamObject);
+    videoRecorder = new MediaRecorder(streamObject);
     videoRecorder.start();
+    // 녹화를 종료시키면 다운로드
     videoRecorder.addEventListener("dataavailable", handleVideoData);
+    recordBtn.addEventListener("click", stopRecording);
 };
 
 const getVideo = async () => {
