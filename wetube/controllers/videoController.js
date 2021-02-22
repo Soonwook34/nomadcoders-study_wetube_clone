@@ -105,3 +105,23 @@ export const deleteVideo = async (req, res) => {
     }
     res.redirect(routes.home);
   };
+
+// Register Video View (조회수 1 증가)
+
+export const postRegisterView = async (req, res) => {
+    const {
+        params: { id }
+    } = req;
+    try {
+        const video = await Video.findById(id);
+        video.views += 1;
+        video.save();
+        res.status(200);
+    } catch (error) {
+        // 에러
+        res.status(400);
+    } finally {
+        // 종료
+        res.end();
+    }
+};
