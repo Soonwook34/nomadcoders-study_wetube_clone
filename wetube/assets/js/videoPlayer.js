@@ -9,7 +9,7 @@ const volumeRange = document.getElementById("jsVolume");
 
 const registerView = () => {
     const videoId = window.location.href.split("/videos/")[1];
-    // axios 사용
+    // axios 사용 (await 사용이 가능하지만 결과를 기다릴 필요 X)
     fetch(`/api/${videoId}/view`, {
         method: "POST"
     });
