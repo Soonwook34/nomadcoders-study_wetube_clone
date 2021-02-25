@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import path from "path";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import routes from "./routes"
@@ -27,9 +28,12 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.set("view engine", "pug");
 
 // video 파일을 전송해주기 위한 middleware express.static()
-app.use("/uploads", express.static("uploads"));
+    // app.use("/uploads", express.static("uploads"));
+app.set("views", path.join(__dirname, "views"))
 // 경로 연결
-app.use("/static", express.static("static"));
+    // app.use("/static", express.static("static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
+
 // middleware bodyParser, cookieParser(json, urlencoded) 사용
 app.use(cookieParser());
 app.use(bodyParser.json());
