@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { handleDelete } from "./deleteComment";
+
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
@@ -12,8 +14,16 @@ const increaseNumber = () => {
 const addComment = comment => {
     const li = document.createElement("li");
     const span = document.createElement("span");
+    const i = document.createElement("i");
+    // 댓글
     span.innerHTML = comment;
+    // 삭제 버튼
+    i.classList.add("fas");
+    i.classList.add("fa-times-circle");
+    i.addEventListener("click", handleDelete);
+    
     li.appendChild(span);
+    li.appendChild(i);
     commentList.prepend(li);
     increaseNumber();
 };

@@ -70,7 +70,7 @@ export const getEditVideo = async (req, res) => {
     } = req;
     try {
         const video = await Video.findById(id);
-        if (video.creator !== req.user.id) {
+        if (video.creator != req.user.id) {
             throw Error();
         } else {
             res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
@@ -99,7 +99,7 @@ export const deleteVideo = async (req, res) => {
     } = req;
     try {
         const video = await Video.findById(id);
-        if (video.creator !== req.user.id) {
+        if (video.creator != req.user.id) {
             throw Error();
         } else {
             await Video.findOneAndRemove({ _id: id });
@@ -147,6 +147,29 @@ export const postAddComment = async (req, res) => {
         });
         video.comments.push(newComment.id);
         video.save();
+    } catch (error) {
+        res.status(400);
+    } finally {
+        res.end();
+    }
+};
+
+// Delete Comment
+
+export const postDeleteComment = async (req, res) => {
+    const {
+        params: { id },
+        body: { commentIdx },
+    } = req;
+    try {
+        const video = await Video.findById(id);
+        const indexOnDB = video.comments.length - commentIdx - 1;
+        const commentID = video.comments[indexOnDB];
+        await Video.findByIdAndUpdate(
+            id,
+            { $pull: { comments: commentID } },
+            { safe: true, upsert: true }
+        );
     } catch (error) {
         res.status(400);
     } finally {

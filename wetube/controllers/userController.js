@@ -9,7 +9,7 @@ export const getJoin = (req, res) => {
 export const postJoin = async (req, res, next) => {
     // req.body => bodyParser using ECMAScript6(ES6)
     const { body: { name, email, password, password2 } } = req;
-    if (password !== password2) {
+    if (password != password2) {
         res.status(400);
         res.render("join", { pageTitle: "Join" });
     } else {
@@ -147,7 +147,7 @@ export const postChangePassword = async (req, res) => {
         body: { oldPassword, newPassword, newPassword1 }
     } = req;
     try {
-        if (newPassword !== newPassword1) {
+        if (newPassword != newPassword1) {
             res.status(400);
             res.redirect(`/users/${routes.changePassword}`);
             return;
