@@ -53,7 +53,8 @@
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "prebuild": "rd /s \"build\"",
     "tunnel": "lt --port 4000",
-    "start": "node build/init.js"
+    "start": "PRODUCTION=true node build/init.js",
+    "prestart": "npm run build"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
