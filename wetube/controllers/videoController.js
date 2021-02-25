@@ -34,10 +34,10 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
     const {
         body: { title, description },
-        file: { path }
+        file: { location }
     } = req;
     const newVideo = await Video.create({
-        fileUrl: path,
+        fileUrl: location,
         title,
         description,
         creator: req.user.id
@@ -170,6 +170,7 @@ export const postDeleteComment = async (req, res) => {
             { $pull: { comments: commentID } },
             { safe: true, upsert: true }
         );
+        await Comment.findOneAndRemove({ _id: commentID });
     } catch (error) {
         res.status(400);
     } finally {
